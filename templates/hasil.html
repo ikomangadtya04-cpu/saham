@@ -1,0 +1,326 @@
+<!-- =========================
+FILE : hasil.html
+========================= -->
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Hasil Ranking - InvestRank</title>
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+    <!-- GOOGLE FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet"
+    href="{{ url_for(
+    'static',
+    filename='assets/css/style.css') }}">
+
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+    <nav class="navbar">
+
+        <div class="logo">
+
+            <i class="fa-solid fa-chart-line"></i>
+
+            <span>
+                InvestRank
+            </span>
+
+        </div>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="{{ url_for('dashboard') }}">
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('saham') }}">
+                    Data Saham
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('kriteria') }}">
+                    Kriteria
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('ahp') }}">
+                    Perbandingan AHP
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('hasil') }}"
+                class="active">
+
+                    Hasil
+
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+    <!-- =========================
+         CONTENT
+    ========================== -->
+    <section class="container">
+
+        <!-- HEADER -->
+        <div class="page-header">
+
+            <h1>
+                🏆 Hasil Ranking Saham
+            </h1>
+
+            <p>
+                Rekomendasi saham sektor
+                consumer goods berdasarkan
+                metode AHP
+            </p>
+
+        </div>
+
+        <!-- =========================
+             SUMMARY
+        ========================== -->
+        <div class="summary-card">
+
+            <div class="summary-item">
+
+                <h3>
+                    {{ ranking|length }}
+                </h3>
+
+                <span>
+                    Total Saham
+                </span>
+
+            </div>
+
+            <div class="summary-item">
+
+                <h3>
+                    4
+                </h3>
+
+                <span>
+                    Kriteria
+                </span>
+
+            </div>
+
+            <div class="summary-item">
+
+                <h3>
+                    {{ ranking[0].kode }}
+                </h3>
+
+                <span>
+                    Ranking Terbaik
+                </span>
+
+            </div>
+
+        </div>
+
+        <!-- =========================
+             TOP RANKING
+        ========================== -->
+        <h2 class="section-title">
+
+            Top Ranking Saham
+
+        </h2>
+
+        <div class="ranking-card">
+
+            {% for saham in ranking[:3] %}
+
+            <div class="stock-card
+            {% if loop.index == 1 %}
+            top
+            {% endif %}">
+
+                <!-- ICON RANK -->
+                <div class="rank">
+
+                    {% if loop.index == 1 %}
+                        🥇
+                    {% elif loop.index == 2 %}
+                        🥈
+                    {% else %}
+                        🥉
+                    {% endif %}
+
+                </div>
+
+                <!-- KODE SAHAM -->
+                <h3>
+                    {{ saham.kode }}
+                </h3>
+
+                <!-- BADGE -->
+                {% if saham.skor >= 0.80 %}
+
+                    <span class="badge green">
+                        Sangat Direkomendasikan
+                    </span>
+
+                {% elif saham.skor >= 0.65 %}
+
+                    <span class="badge yellow">
+                        Layak Dipertimbangkan
+                    </span>
+
+                {% else %}
+
+                    <span class="badge blue">
+                        Stabil
+                    </span>
+
+                {% endif %}
+
+                <!-- SCORE -->
+                <div class="score">
+
+                    {{ "%.3f"|format(
+                    saham.skor ) }}
+
+                </div>
+
+                <!-- PROGRESS -->
+                <div class="progress-bar">
+
+                    <div class="fill"
+                    style="width: {{ saham['skor'] * 100 }}%;">
+                    </div>
+
+                </div>
+
+            </div>
+
+            {% endfor %}
+
+        </div>
+
+        <!-- =========================
+             TABLE DETAIL
+        ========================== -->
+        <h2 class="section-title">
+
+            Detail Ranking
+
+        </h2>
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            Ranking
+                        </th>
+
+                        <th>
+                            Saham
+                        </th>
+
+                        <th>
+                            Skor
+                        </th>
+
+                        <th>
+                            Status
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for saham in ranking %}
+
+                    <tr>
+
+                        <td>
+                            {{ loop.index }}
+                        </td>
+
+                        <td>
+                            {{ saham.kode }}
+                        </td>
+
+                        <td>
+
+                            {{ "%.3f"|format(
+                            saham.skor ) }}
+
+                        </td>
+
+                        <td>
+
+                            {% if saham.skor >= 0.80 %}
+
+                            <span class="badge green">
+                                Direkomendasikan
+                            </span>
+
+                            {% elif saham.skor >= 0.65 %}
+
+                            <span class="badge yellow">
+                                Dipertimbangkan
+                            </span>
+
+                            {% else %}
+
+                            <span class="badge blue">
+                                Stabil
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+</body>
+</html>

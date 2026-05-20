@@ -1,0 +1,211 @@
+<!-- =========================
+FILE : ahp.html
+========================= -->
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>AHP - InvestRank</title>
+
+    <!-- FONT AWESOME -->
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+    <!-- GOOGLE FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet"
+    href="{{ url_for('static',
+    filename='assets/css/style.css') }}">
+
+</head>
+
+<body>
+
+    <!-- =========================
+         NAVBAR
+    ========================== -->
+    <nav class="navbar">
+
+        <div class="logo">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>InvestRank</span>
+        </div>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="{{ url_for('dashboard') }}">
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('saham') }}">
+                    Data Saham
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('kriteria') }}">
+                    Kriteria
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('ahp') }}"
+                class="active">
+                    Perbandingan AHP
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('hasil') }}">
+                    Hasil
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+    <!-- =========================
+         CONTENT
+    ========================== -->
+    <section class="container">
+
+        <div class="ahp-card">
+
+            <!-- STEP -->
+            <p class="step-text">
+                Langkah
+                <span id="stepNow">1</span>
+                dari 6
+            </p>
+
+            <!-- PROGRESS -->
+            <div class="progress-bar">
+
+                <div
+                class="progress-fill-ahp"
+                id="progressFill">
+
+                </div>
+
+            </div>
+
+            <!-- TITLE -->
+            <h1 id="questionTitle">
+
+                Return vs Risiko
+
+            </h1>
+
+            <!-- SUBTITLE -->
+            <p class="question-subtitle">
+
+                Mana yang lebih penting
+                dalam memilih saham?
+
+            </p>
+
+            <!-- LABEL -->
+            <div class="slider-top">
+
+                <span id="leftLabel">
+
+                    Risiko
+
+                </span>
+
+                <span id="rightLabel">
+
+                    Return
+
+                </span>
+
+            </div>
+
+            <!-- SLIDER -->
+            <input
+            type="range"
+            min="1"
+            max="9"
+            value="5"
+            id="ahpSlider">
+
+            <!-- SCALE -->
+            <div class="slider-scale">
+
+                <span>
+                    Kurang penting
+                </span>
+
+                <span>
+                    Sama penting
+                </span>
+
+                <span>
+                    Sangat penting
+                </span>
+
+            </div>
+
+            <!-- PREVIEW -->
+            <div
+            class="preview-choice"
+            id="previewText">
+
+                Pilihan Anda:
+                Return 5x lebih penting
+                dibanding Risiko
+
+            </div>
+
+            <!-- BUTTON -->
+            <div class="button-group">
+
+                <button
+                class="secondary-btn"
+                id="prevBtn">
+
+                    Sebelumnya
+
+                </button>
+
+                <button
+                class="primary-btn"
+                id="nextBtn">
+
+                    Simpan & Lanjut
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- =========================
+     JAVASCRIPT
+    ========================= -->
+
+    <script>
+        const hasilURL = "{{ url_for('hasil') }}";
+    </script>
+
+    <script src="{{ url_for(
+        'static',
+        filename='assets/js/ahp.js'
+    ) }}"></script>
+</body>
+</html>

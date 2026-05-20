@@ -1,0 +1,203 @@
+<!-- =========================
+FILE : saham.html
+========================= -->
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Data Saham - InvestRank</title>
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+    <link rel="stylesheet"
+    href="{{ url_for('static',
+    filename='assets/css/style.css') }}">
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+
+        <div class="logo">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>InvestRank</span>
+        </div>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="{{ url_for('dashboard') }}">
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('saham') }}"
+                class="active">
+                    Data Saham
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('kriteria') }}">
+                    Kriteria
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('ahp') }}">
+                    Perbandingan AHP
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('hasil') }}">
+                    Hasil
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+    <!-- CONTENT -->
+    <section class="container">
+
+        <h1 class="page-title">
+            Data Saham Consumer Goods
+        </h1>
+
+        <p class="subtitle">
+            Menampilkan data saham berdasarkan
+            return bulanan, dividend yield,
+            dan kestabilan saham.
+        </p>
+
+        <!-- STATISTIK -->
+        <div class="stats">
+
+            <div class="stat-card">
+                <h2>{{ stocks|length }}</h2>
+                <p>Total Record</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>{{ stocks|length }}</h2>
+                <p>Total Saham</p>
+            </div>
+
+            <div class="stat-card">
+                <h2>Consumer</h2>
+                <p>Sektor Saham</p>
+            </div>
+
+        </div>
+
+        <!-- SEARCH & FILTER -->
+        <div class="top-action">
+
+            <div class="left-action">
+
+                <div class="search-box">
+
+                    <i class="fa-solid fa-search"></i>
+
+                    <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="Cari saham...">
+
+                </div>
+
+                <select class="filter-select">
+
+                    <option>
+                        Semua Saham
+                    </option>
+
+                    {% for stock in stocks %}
+                    <option>
+                        {{ stock.kode }}
+                    </option>
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <!-- TABLE -->
+        <div class="table-container">
+
+            <table id="stockTable">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Saham</th>
+
+                        <th>Harga</th>
+
+                        <th>Return (%)</th>
+
+                        <th>Keterangan</th>
+
+                        <th>Dividend Yield</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for stock in stocks %}
+                    <tr>
+                        <td>{{ stock.kode }}</td>
+                        <td>{{ stock.harga }}</td>
+                        <td class="{{ 'positive' if stock.return_pct >= 0 else 'negative' }}">
+                            {{ "%.2f"|format(stock.return_pct) }}%
+                        </td>
+                        <td>{{ stock.keterangan }}</td>
+                        <td>{{ stock.dividend }}</td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+    <!-- =========================
+         CHART JS CDN
+    ========================== -->
+    <script src=
+    "https://cdn.jsdelivr.net/npm/chart.js">
+    </script>
+
+    <!-- =========================
+         SAHAM JS
+    ========================== -->
+    <script src="{{ url_for(
+    'static',
+    filename='assets/js/saham.js') }}">
+    </script>
+
+</body>
+</html>

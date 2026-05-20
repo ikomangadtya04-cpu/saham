@@ -1,0 +1,178 @@
+<!-- =========================
+FILE : kriteria.html
+========================= -->
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+
+    <title>Kriteria - InvestRank</title>
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+    <link rel="stylesheet"
+    href="{{ url_for('static',
+    filename='assets/css/style.css') }}">
+
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+
+        <div class="logo">
+            <i class="fa-solid fa-chart-line"></i>
+            <span>InvestRank</span>
+        </div>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="{{ url_for('dashboard') }}">
+                    Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('saham') }}">
+                    Data Saham
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('kriteria') }}"
+                class="active">
+                    Kriteria
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('ahp') }}">
+                    Perbandingan AHP
+                </a>
+            </li>
+
+            <li>
+                <a href="{{ url_for('hasil') }}">
+                    Hasil
+                </a>
+            </li>
+
+        </ul>
+
+    </nav>
+
+    <!-- CONTENT -->
+    <section class="container">
+
+        <h1 class="page-title">
+            Kriteria Penilaian Saham
+        </h1>
+
+        <p class="subtitle">
+            Sistem menggunakan 4 kriteria utama
+            untuk menentukan saham terbaik pada
+            sektor Consumer Goods menggunakan
+            metode AHP.
+        </p>
+
+        <!-- CARD GRID -->
+        <div class="criteria-grid">
+
+            <!-- RETURN -->
+            <div class="criteria-card">
+
+                <i class="fa-solid fa-arrow-trend-up criteria-icon"></i>
+
+                <h3>Return</h3>
+
+                <span class="criteria-type">
+                    Benefit Criteria
+                </span>
+
+                <p>
+                    Mengukur tingkat keuntungan
+                    yang diperoleh investor dari
+                    kenaikan harga saham.
+                    Semakin tinggi return,
+                    semakin baik.
+                </p>
+
+            </div>
+
+            <!-- RISIKO -->
+            <div class="criteria-card">
+
+                <i class="fa-solid fa-chart-line-down criteria-icon"></i>
+
+                <h3>Risiko</h3>
+
+                <span class="criteria-type cost">
+                    Cost Criteria
+                </span>
+
+                <p>
+                    Mengukur tingkat volatilitas
+                    atau ketidakstabilan harga
+                    saham. Semakin kecil risiko,
+                    semakin baik.
+                </p>
+
+            </div>
+
+            <!-- DIVIDEND -->
+            <div class="criteria-card">
+
+                <i class="fa-solid fa-money-bill-trend-up criteria-icon"></i>
+
+                <h3>Dividend Yield</h3>
+
+                <span class="criteria-type">
+                    Benefit Criteria
+                </span>
+
+                <p>
+                    Mengukur keuntungan tambahan
+                    yang diterima investor dari
+                    pembagian dividen perusahaan.
+                    Nilai lebih tinggi lebih baik.
+                </p>
+
+            </div>
+
+            <!-- STABILITAS -->
+            <div class="criteria-card">
+
+                <i class="fa-solid fa-shield-heart criteria-icon"></i>
+
+                <h3>Stabilitas</h3>
+
+                <span class="criteria-type">
+                    Benefit Criteria
+                </span>
+
+                <p>
+                    Mengukur kestabilan pergerakan
+                    saham dari waktu ke waktu.
+                    Saham yang lebih stabil lebih
+                    disukai investor konservatif.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</body>
+</html>
